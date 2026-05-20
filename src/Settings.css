@@ -1,0 +1,125 @@
+/* Settings.css */
+
+.settings-layout {
+  display: flex;
+  flex-direction: column;
+}
+
+.settings-content-area {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top: 2rem;
+  flex-grow: 1;
+}
+
+/* Avatar */
+.settings-avatar-circle {
+  width: 150px;
+  height: 150px;
+  background-color: #252525;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #FFFFFF;
+  font-size: 5rem;
+  font-weight: 400;
+  margin-bottom: 3rem;
+  /* subtle shadow matching the design */
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.4);
+}
+
+/* Display Name Card */
+.settings-display-name-card {
+  width: 100%;
+  max-width: 600px;
+}
+
+.settings-display-name-card .glow-card-content {
+  padding: 1.5rem 2rem;
+}
+
+.settings-label {
+  color: #A0A0A0;
+  font-size: 1rem;
+  margin-bottom: 0.5rem;
+  display: block;
+}
+
+.settings-value {
+  color: #FFFFFF;
+  font-size: 1.5rem;
+  font-weight: 500;
+  display: block;
+}
+
+/* Read Mode */
+.display-name-read-mode {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.display-name-info {
+  display: flex;
+  flex-direction: column;
+}
+
+/* Edit Mode */
+.display-name-edit-mode {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.display-name-input {
+  width: 100%;
+  background-color: #C0C0C0; /* Light gray from design */
+  border: none;
+  border-radius: 8px;
+  padding: 1rem;
+  font-size: 1.25rem;
+  font-weight: 500;
+  color: #D41111; /* Red text */
+  outline: none;
+}
+
+.display-name-input:focus {
+  box-shadow: 0 0 0 2px rgba(212, 17, 17, 0.5);
+}
+
+/* Buttons */
+.settings-btn-primary {
+  background-color: var(--accent-color);
+  color: #FFFFFF;
+  border: none;
+  border-radius: 8px;
+  padding: 0.75rem 2.5rem;
+  font-size: 1.2rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: background-color 0.2s;
+}
+
+.settings-btn-primary:hover {
+  background-color: #B30E0E;
+}
+
+.settings-btn-primary.full-width {
+  width: 100%;
+  padding: 0.85rem 1rem;
+}
+
+/* Footer / Sign Out */
+.settings-footer {
+  margin-top: auto;
+  padding-top: 4rem;
+  display: flex;
+  justify-content: center;
+  width: 100%;
+}
+
+.signout-btn {
+  max-width: 600px;
+}

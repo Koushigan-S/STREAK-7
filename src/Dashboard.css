@@ -1,0 +1,288 @@
+.dashboard-layout {
+  position: relative;
+  min-height: 100vh;
+  background-color: var(--bg-color);
+  color: #FFFFFF;
+  overflow-x: hidden;
+}
+
+.dashboard-main {
+  padding: 2rem;
+  width: 100%;
+  max-width: none;
+  margin: 0;
+  transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.4s;
+}
+
+/* When sidebar opens, we can shift or dim the main content if desired */
+.dashboard-main.shifted {
+  opacity: 0.5;
+  pointer-events: none;
+}
+
+/* Grid Layout using Flex Rows */
+.dashboard-grid {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+/* Common Card Styles */
+/* .stat-card, .widget-card handled by GlowCard */
+
+.widget-title {
+  color: #E0E0E0;
+  font-size: 1.1rem;
+  font-weight: 500;
+  margin-top: 0;
+  margin-bottom: 1rem;
+}
+
+/* Stats Row */
+.stats-row {
+  display: flex;
+  gap: 1.5rem;
+}
+/* Wait, I didn't wrap stats in a row div, I just put them in grid. I should update Dashboard.jsx or use CSS Grid */
+.dashboard-grid {
+  display: grid;
+  grid-template-columns: repeat(12, 1fr);
+  grid-gap: 1.5rem;
+}
+
+/* Stats */
+.stat-card {
+  grid-column: span 4;
+}
+.stat-card .glow-card-content {
+  align-items: center;
+  justify-content: center;
+  padding: 2rem 1rem;
+}
+.stat-title {
+  color: #A0A0A0;
+  font-size: 1.1rem;
+  font-weight: 500;
+  margin: 0 0 0.5rem 0;
+}
+.stat-value {
+  font-size: 2.5rem;
+  font-weight: 600;
+  color: #FFFFFF;
+  margin: 0;
+}
+
+/* Middle Row */
+.progress-widget {
+  grid-column: span 7;
+}
+.quote-widget {
+  grid-column: span 5;
+}
+
+/* Bottom Row */
+.tasks-widget {
+  grid-column: span 4;
+  display: flex;
+  flex-direction: column;
+}
+.diary-widget {
+  grid-column: span 8;
+  display: flex;
+  flex-direction: column;
+}
+
+/* Specific Widget Styles */
+
+/* Progress Bar */
+.progress-bar-container {
+  height: 24px;
+  background: rgba(0, 0, 0, 0.5);
+  border-radius: 12px;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  position: relative;
+  overflow: hidden;
+  margin-top: 1.5rem;
+}
+
+.progress-bar-fill {
+  height: 100%;
+  background: linear-gradient(90deg, #D41111, rgba(212, 17, 17, 0.2));
+  border-radius: 12px;
+  box-shadow: 2px 0 8px rgba(212, 17, 17, 0.5);
+}
+
+.progress-text {
+  position: absolute;
+  right: 12px;
+  top: 50%;
+  transform: translateY(-50%);
+  font-size: 0.8rem;
+  font-weight: 600;
+  color: #FFFFFF;
+}
+
+/* Quote */
+.quote-text {
+  font-size: 1.1rem;
+  font-weight: 500;
+  color: #FFFFFF;
+  font-style: italic;
+  line-height: 1.5;
+  margin-top: 1rem;
+}
+
+/* Glow Panel for Tasks */
+.glow-panel {
+  border-color: rgba(212, 17, 17, 0.5);
+}
+
+/* Tasks List */
+.tasks-list {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+  flex-grow: 1;
+  margin-bottom: 1rem;
+  /* Scrollbar if needed */
+  max-height: 200px;
+  overflow-y: auto;
+  padding-right: 0.5rem;
+}
+
+/* Custom scrollbar for tasks list */
+.tasks-list::-webkit-scrollbar {
+  width: 6px;
+}
+.tasks-list::-webkit-scrollbar-track {
+  background: rgba(255, 255, 255, 0.05);
+  border-radius: 4px;
+}
+.tasks-list::-webkit-scrollbar-thumb {
+  background: #D41111;
+  border-radius: 4px;
+}
+
+.task-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: rgba(0, 0, 0, 0.4);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  padding: 0.6rem 1rem;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background 0.2s, border-color 0.2s;
+}
+
+.task-item:hover {
+  background: rgba(0, 0, 0, 0.6);
+}
+
+.task-red-border {
+  border-color: rgba(212, 17, 17, 0.4);
+  box-shadow: 0 0 10px rgba(212, 17, 17, 0.1);
+}
+
+.task-title {
+  font-size: 0.9rem;
+  color: #FFFFFF;
+}
+
+.task-icon {
+  color: var(--accent-color);
+}
+
+/* Buttons */
+.add-task-btn, .add-entry-btn {
+  background-color: var(--accent-color);
+  color: #FFFFFF;
+  border: none;
+  border-radius: 6px;
+  padding: 0.75rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background-color 0.2s;
+  width: 100%;
+}
+
+.add-task-btn:hover, .add-entry-btn:hover {
+  background-color: #B30E0E;
+}
+
+/* Main Dashboard Top Bar */
+.topbar {
+  margin-bottom: 2rem;
+  border-color: rgba(212, 17, 17, 0.5);
+}
+.topbar .glow-card-content {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: flex-start;
+  gap: 1rem;
+  padding: 0.5rem 1rem;
+}
+
+.topbar-toggle {
+  background: rgba(30, 30, 30, 0.8);
+  border: none;
+  border-radius: 8px;
+  width: 48px;
+  height: 48px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  color: var(--accent-color);
+  transition: background-color 0.2s;
+  flex-shrink: 0;
+}
+
+.topbar-toggle:hover {
+  background-color: rgba(212, 17, 17, 0.1);
+}
+
+.topbar-title {
+  color: #FFFFFF;
+  font-size: 1.5rem;
+  font-weight: 700;
+  margin: 0;
+}
+
+/* Diary Entry */
+.diary-textarea {
+  width: 100%;
+  flex-grow: 1;
+  min-height: 120px;
+  background: transparent;
+  border: 1px solid rgba(212, 17, 17, 0.3);
+  border-radius: 8px;
+  padding: 1rem;
+  color: #FFFFFF;
+  font-family: inherit;
+  font-size: 1rem;
+  resize: none;
+  outline: none;
+  margin-bottom: 1rem;
+}
+.diary-textarea::placeholder {
+  color: rgba(255, 255, 255, 0.3);
+}
+.diary-textarea:focus {
+  border-color: var(--accent-color);
+  box-shadow: 0 0 10px rgba(212, 17, 17, 0.1);
+}
+
+/* Responsive adjustments */
+@media (max-width: 900px) {
+  .stat-card {
+    grid-column: span 12;
+  }
+  .progress-widget, .quote-widget {
+    grid-column: span 12;
+  }
+  .tasks-widget, .diary-widget {
+    grid-column: span 12;
+  }
+}

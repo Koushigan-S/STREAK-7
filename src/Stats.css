@@ -1,0 +1,176 @@
+/* Stats.css */
+
+.stats-header-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 2rem;
+  gap: 2rem;
+}
+
+.stats-greeting {
+  font-size: 2.5rem;
+  font-weight: 700;
+  color: #E0E0E0;
+  margin: 0;
+  flex-grow: 1;
+  line-height: 1.2;
+}
+
+.streak-card {
+  width: 180px;
+  flex-shrink: 0;
+}
+
+.streak-card .glow-card-content {
+  align-items: center;
+  justify-content: center;
+  padding: 1.2rem;
+}
+
+.stats-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 2rem;
+  min-height: 500px;
+}
+
+/* Left Column: Overall Progress Radar Chart */
+.stats-overall-card {
+  height: 100%;
+}
+
+.stats-overall-card .glow-card-content {
+  padding: 2rem;
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  height: 100%;
+}
+
+.overall-title {
+  font-size: 1.8rem;
+  line-height: 1.2;
+  margin-bottom: 1rem;
+  position: absolute;
+  top: 2rem;
+  left: 2rem;
+  z-index: 10;
+}
+
+.radar-container {
+  flex-grow: 1;
+  width: 100%;
+  min-height: 400px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Recharts Overrides for custom look */
+.recharts-polar-grid-angle line {
+  stroke: rgba(255, 255, 255, 0.4);
+}
+.recharts-polar-grid-concentric polygon {
+  stroke: rgba(255, 255, 255, 0.4);
+}
+
+/* Right Column */
+.stats-right-col {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+}
+
+/* Progress Bar Card */
+.stats-progress-widget .glow-card-content {
+  padding: 2rem;
+}
+
+/* Daily Progress List */
+.daily-progress-list-card {
+  flex-grow: 1;
+}
+
+.daily-progress-list-card .glow-card-content {
+  padding: 2rem;
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+
+.daily-progress-box {
+  background: rgba(20, 20, 20, 0.5);
+  border: 1px solid rgba(255, 255, 255, 0.05);
+  border-radius: 12px;
+  padding: 1.5rem;
+  flex-grow: 1;
+  overflow-y: auto;
+  max-height: 350px; /* Force scrollbar */
+  margin-top: 1rem;
+}
+
+.daily-progress-box::-webkit-scrollbar {
+  width: 8px;
+}
+.daily-progress-box::-webkit-scrollbar-track {
+  background: rgba(255, 255, 255, 0.05);
+  border-radius: 4px;
+}
+.daily-progress-box::-webkit-scrollbar-thumb {
+  background: rgba(255, 255, 255, 0.8);
+  border-radius: 4px;
+}
+
+.progress-section {
+  margin-bottom: 2rem;
+}
+.progress-section:last-child {
+  margin-bottom: 0;
+}
+
+.progress-section-title {
+  color: #E0E0E0;
+  font-size: 1.1rem;
+  font-weight: 500;
+  margin-top: 0;
+  margin-bottom: 1rem;
+}
+
+.progress-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0.8rem;
+}
+
+.progress-list li {
+  color: #FFFFFF;
+  font-size: 0.95rem;
+  display: flex;
+  align-items: center;
+  font-weight: 500;
+}
+
+.progress-list li::before {
+  content: '';
+  display: inline-block;
+  width: 5px;
+  height: 5px;
+  background-color: var(--accent-color);
+  border-radius: 50%;
+  margin-right: 12px;
+  box-shadow: 0 0 5px var(--accent-color);
+}
+
+@media (max-width: 1000px) {
+  .stats-header-row {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+  .stats-grid {
+    grid-template-columns: 1fr;
+  }
+}
