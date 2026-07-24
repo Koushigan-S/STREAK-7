@@ -1,15 +1,21 @@
-import React, { useState } from 'react';
+import { useState, FC } from 'react';
 import { Menu } from 'lucide-react';
 import { Radar, RadarChart, PolarGrid, PolarAngleAxis, PolarRadiusAxis, ResponsiveContainer } from 'recharts';
 import Sidebar from './Sidebar';
 import GlowCard from './GlowCard';
 import './Stats.css';
+import { OnNavigateFn, RadarSubject } from './types';
 
-const Stats = ({ userName, onNavigate }) => {
-  const [isSidebarOpen, setIsSidebarOpen] = useState(false);
+export interface StatsProps {
+  userName?: string;
+  onNavigate: OnNavigateFn;
+}
+
+const Stats: FC<StatsProps> = ({ userName, onNavigate }) => {
+  const [isSidebarOpen, setIsSidebarOpen] = useState<boolean>(false);
 
   // Mock Data for Radar Chart
-  const radarData = [
+  const radarData: RadarSubject[] = [
     { subject: 'Study', A: 80, fullMark: 100 },
     { subject: 'Others', A: 65, fullMark: 100 },
     { subject: 'Challenges', A: 90, fullMark: 100 },

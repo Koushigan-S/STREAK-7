@@ -1,14 +1,19 @@
-import React, { useRef, useEffect } from 'react';
+import { useRef, useEffect, FC, ReactNode } from 'react';
 import './GlowCard.css';
 
-const GlowCard = ({ children, className = '' }) => {
-  const cardRef = useRef(null);
+export interface GlowCardProps {
+  children?: ReactNode;
+  className?: string;
+}
+
+const GlowCard: FC<GlowCardProps> = ({ children, className = '' }) => {
+  const cardRef = useRef<HTMLDivElement | null>(null);
 
   useEffect(() => {
     const card = cardRef.current;
     if (!card) return;
 
-    const handleMouseMove = (e) => {
+    const handleMouseMove = (e: MouseEvent) => {
       const rect = card.getBoundingClientRect();
       const x = e.clientX - rect.left;
       const y = e.clientY - rect.top;

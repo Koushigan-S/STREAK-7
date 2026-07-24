@@ -1,8 +1,14 @@
-import React from 'react';
+import { FC } from 'react';
 import GlowCard from './GlowCard';
 import './Auth.css';
+import { OnNavigateFn } from './types';
 
-const Welcome = ({ onNavigate, userName }) => {
+export interface WelcomeProps {
+  onNavigate: OnNavigateFn;
+  userName?: string;
+}
+
+const Welcome: FC<WelcomeProps> = ({ onNavigate, userName }) => {
   return (
     <div className="signin-container flex-col">
       <GlowCard className="welcome-card">

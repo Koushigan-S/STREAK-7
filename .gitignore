@@ -11,6 +11,10 @@ node_modules
 dist
 dist-ssr
 *.local
+.env
+FIREBASE SDK.TXT
+.firebase/
+*.tsbuildinfo
 
 # Editor directories and files
 .vscode/*

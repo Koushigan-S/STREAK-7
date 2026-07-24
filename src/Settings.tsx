@@ -1,23 +1,42 @@
-import React, { useState } from 'react';
+import { useState, FC } from 'react';
 import { Menu } from 'lucide-react';
+import { signOut, updateProfile } from 'firebase/auth';
+import { auth } from './firebase';
 import Sidebar from './Sidebar';
 import GlowCard from './GlowCard';
 import './Settings.css';
+import { OnNavigateFn } from './types';
 
-const Settings = ({ userName, onNavigate }) => {
-  const [isSidebarOpen, setIsSidebarOpen] = useState(false);
-  const [isEditing, setIsEditing] = useState(false);
-  const [inputValue, setInputValue] = useState(userName || 'Name');
+export interface SettingsProps {
+  userName?: string;
+  onNavigate: OnNavigateFn;
+}
+
+const Settings: FC<SettingsProps> = ({ userName, onNavigate }) => {
+  const [isSidebarOpen, setIsSidebarOpen] = useState<boolean>(false);
+  const [isEditing, setIsEditing] = useState<boolean>(false);
+  const [inputValue, setInputValue] = useState<string>(userName || 'Name');
 
   const avatarLetter = (userName || 'Name').charAt(0).toUpperCase();
 
-  const handleSave = () => {
+  const handleSave = async () => {
     setIsEditing(false);
-    // Update global state and stay on the settings page
+    if (auth.currentUser) {
+      try {
+        await updateProfile(auth.currentUser, { displayName: inputValue });
+      } catch (err) {
+        console.error('Failed to update profile name:', err);
+      }
+    }
     onNavigate('settings', { name: inputValue });
   };
 
-  const handleSignOut = () => {
+  const handleSignOut = async () => {
+    try {
+      await signOut(auth);
+    } catch (err) {
+      console.error('Sign out error:', err);
+    }
     onNavigate('signin');
   };
 

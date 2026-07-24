@@ -1,34 +1,86 @@
-import React, { useState } from 'react';
-import { Menu, CheckSquare, Square, Check } from 'lucide-react';
+import { useState, useMemo, useEffect, FC } from 'react';
+import { Menu, CheckSquare, Square } from 'lucide-react';
+import { doc, getDoc, setDoc } from 'firebase/firestore';
+import { db, auth } from './firebase';
 import Sidebar from './Sidebar';
 import GlowCard from './GlowCard';
 import './HabitsTasks.css';
+import { OnNavigateFn, Habit, HeatmapDay } from './types';
 
-const HabitsTasks = ({ userName, onNavigate }) => {
-  const [isSidebarOpen, setIsSidebarOpen] = useState(false);
-  const [isAddModalOpen, setIsAddModalOpen] = useState(false);
-  const [activeFilter, setActiveFilter] = useState('All');
-  const [hoveredDay, setHoveredDay] = useState(null);
+export interface HabitsTasksProps {
+  userName?: string;
+  onNavigate: OnNavigateFn;
+}
+
+const defaultHabits: Habit[] = [
+  { id: 1, title: 'Jogging', streak: 4, category: 'Health', completed: true },
+  { id: 2, title: 'Exercise', streak: 2, category: 'Health', completed: true },
+  { id: 3, title: 'Brush Twice', streak: 3, category: 'Health', completed: false, isActive: true },
+  { id: 4, title: 'Read', streak: 6, category: 'Study', completed: true },
+  { id: 5, title: 'Badminton', streak: 1, category: 'Challenges', completed: true }
+];
+
+const HabitsTasks: FC<HabitsTasksProps> = ({ onNavigate }) => {
+  const [isSidebarOpen, setIsSidebarOpen] = useState<boolean>(false);
+  const [isAddModalOpen, setIsAddModalOpen] = useState<boolean>(false);
+  const [newHabitTitle, setNewHabitTitle] = useState<string>('');
+  const [activeFilter, setActiveFilter] = useState<string>('All');
+  const [hoveredDay, setHoveredDay] = useState<HeatmapDay | null>(null);
   
-  const [habits, setHabits] = useState([
-    { id: 1, title: 'Jogging', streak: 4, category: 'Health', completed: true },
-    { id: 2, title: 'Exercise', streak: 2, category: 'Health', completed: true },
-    { id: 3, title: 'Brush Twice', streak: 3, category: 'Health', completed: false, isActive: true },
-    { id: 4, title: 'Read', streak: 6, category: 'Study', completed: true },
-    { id: 5, title: 'Badminton', streak: 1, category: 'Challenges', completed: true }
-  ]);
+  const [habits, setHabits] = useState<Habit[]>(defaultHabits);
 
   const filters = ['All', 'Study', 'Work', 'Health', 'Challenges', 'Heatmap'];
 
-  // Generate mock heatmap data (10 cols x 7 rows)
-  const heatmapData = Array.from({ length: 70 }, (_, i) => ({
+  const heatmapData: HeatmapDay[] = useMemo(() => Array.from({ length: 70 }, (_, i) => ({
     id: i,
-    date: new Date(2025, 9, 23 - (70 - i)), // Mock dates starting from some point
-    count: Math.floor(Math.random() * 6), // 0 to 5 activities
-  }));
+    date: new Date(2025, 9, 23 - (70 - i)),
+    count: (i * 7 + 3) % 6,
+  })), []);
 
-  const toggleHabit = (id) => {
-    setHabits(habits.map(h => h.id === id ? { ...h, completed: !h.completed } : h));
+  useEffect(() => {
+    const fetchHabits = async () => {
+      if (!auth.currentUser) return;
+      try {
+        const userDocRef = doc(db, 'users', auth.currentUser.uid);
+        const userDoc = await getDoc(userDocRef);
+        if (userDoc.exists() && userDoc.data().habits) {
+          setHabits(userDoc.data().habits);
+        }
+      } catch (err) {
+        console.error('Failed to fetch habits from Firestore:', err);
+      }
+    };
+    fetchHabits();
+  }, []);
+
+  const saveHabits = async (updated: Habit[]) => {
+    setHabits(updated);
+    if (!auth.currentUser) return;
+    try {
+      const userDocRef = doc(db, 'users', auth.currentUser.uid);
+      await setDoc(userDocRef, { habits: updated }, { merge: true });
+    } catch (err) {
+      console.error('Failed to save habits to Firestore:', err);
+    }
+  };
+
+  const toggleHabit = (id: number) => {
+    const updated = habits.map(h => h.id === id ? { ...h, completed: !h.completed } : h);
+    saveHabits(updated);
+  };
+
+  const handleAddHabit = () => {
+    if (!newHabitTitle.trim()) return;
+    const newHabit: Habit = {
+      id: Date.now(),
+      title: newHabitTitle.trim(),
+      streak: 1,
+      category: activeFilter !== 'All' && activeFilter !== 'Heatmap' ? activeFilter : 'Health',
+      completed: false,
+    };
+    saveHabits([...habits, newHabit]);
+    setNewHabitTitle('');
+    setIsAddModalOpen(false);
   };
 
   return (
@@ -56,7 +108,7 @@ const HabitsTasks = ({ userName, onNavigate }) => {
           </GlowCard>
           <GlowCard className="stat-card active-habits-card">
             <h3 className="stat-title">Active Habits</h3>
-            <p className="stat-value">5</p>
+            <p className="stat-value">{habits.length}</p>
           </GlowCard>
         </div>
 
@@ -114,12 +166,12 @@ const HabitsTasks = ({ userName, onNavigate }) => {
                     <span>NOV</span>
                   </>
                 ) : (
-                  <div style={{ height: '20px' }}></div> /* Spacer to prevent layout shift */
+                  <div style={{ height: '20px' }}></div>
                 )}
               </div>
               
               <div className="heatmap-grid">
-                {heatmapData.map((day, idx) => (
+                {heatmapData.map((day) => (
                   <div 
                     key={day.id} 
                     className={`heatmap-cell ${hoveredDay?.id === day.id ? 'hovered' : ''}`}
@@ -134,9 +186,9 @@ const HabitsTasks = ({ userName, onNavigate }) => {
 
               <div className="heatmap-footer">
                 {hoveredDay ? (
-                  `${hoveredDay.count} Habits done on October 23,2025` // Mocking date text
+                  `${hoveredDay.count} Habits done on October 23,2025`
                 ) : (
-                  "4 Habits Done Today"
+                  `${habits.filter(h => h.completed).length} Habits Done Today`
                 )}
               </div>
             </div>
@@ -155,9 +207,12 @@ const HabitsTasks = ({ userName, onNavigate }) => {
               type="text" 
               className="modal-input" 
               placeholder="Enter Habit" 
+              value={newHabitTitle}
+              onChange={(e) => setNewHabitTitle(e.target.value)}
+              onKeyDown={(e) => e.key === 'Enter' && handleAddHabit()}
               autoFocus
             />
-            <button className="modal-submit-btn" onClick={() => setIsAddModalOpen(false)}>
+            <button className="modal-submit-btn" onClick={handleAddHabit}>
               Add
             </button>
           </GlowCard>

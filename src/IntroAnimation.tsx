@@ -1,8 +1,8 @@
-import React, { useEffect, useState } from 'react';
+import { useEffect, useState, FC } from 'react';
 import './IntroAnimation.css';
 
-const IntroAnimation = () => {
-  const [animationStarted, setAnimationStarted] = useState(false);
+const IntroAnimation: FC = () => {
+  const [animationStarted, setAnimationStarted] = useState<boolean>(false);
 
   useEffect(() => {
     // Start animation slightly after mount for a smooth entry

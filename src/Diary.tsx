@@ -1,33 +1,59 @@
-import React, { useState, useRef, useEffect } from 'react';
+import { useState, useRef, useEffect, FC } from 'react';
 import { Menu, PlusCircle, Calendar as CalendarIcon, ChevronLeft, ChevronRight, ChevronDown } from 'lucide-react';
+import { doc, getDoc, setDoc } from 'firebase/firestore';
+import { db, auth } from './firebase';
 import Sidebar from './Sidebar';
 import GlowCard from './GlowCard';
 import './Diary.css';
+import { OnNavigateFn, DiaryEntry } from './types';
 
-const Diary = ({ userName, onNavigate }) => {
-  const [isSidebarOpen, setIsSidebarOpen] = useState(false);
-  const [expandedEntryId, setExpandedEntryId] = useState(4); // October 18 expanded by default
-  const [isCalendarOpen, setIsCalendarOpen] = useState(false);
-  
-  const [calendarView, setCalendarView] = useState('days'); // 'days', 'months', 'years'
-  const [currentDate, setCurrentDate] = useState(new Date(2027, 3, 1)); // April 2027 based on mockup
-  
-  const calendarRef = useRef(null);
+export interface DiaryProps {
+  userName?: string;
+  onNavigate: OnNavigateFn;
+}
 
-  const pastEntries = [
-    { id: 1, date: 'October 23,2025', title: 'A busy day', snippet: 'Had a lot of work to do...' },
-    { id: 2, date: 'October 22,2025', title: 'Relaxing sunday', snippet: 'Slept in until 10am...' },
-    { id: 3, date: 'October 20,2025', title: 'Gym progress', snippet: 'Hit a new personal record!' },
-    { id: 4, date: 'October 18,2025', title: 'Feeling Inspired', snippet: 'Today was a good day! I felt...' }
-  ];
+type CalendarView = 'days' | 'months' | 'years';
+
+const defaultPastEntries: DiaryEntry[] = [
+  { id: 1, date: 'October 23, 2025', title: 'A busy day', snippet: 'Had a lot of work to do...' },
+  { id: 2, date: 'October 22, 2025', title: 'Relaxing sunday', snippet: 'Slept in until 10am...' },
+  { id: 3, date: 'October 20, 2025', title: 'Gym progress', snippet: 'Hit a new personal record!' },
+  { id: 4, date: 'October 18, 2025', title: 'Feeling Inspired', snippet: 'Today was a good day! I felt...' }
+];
+
+const Diary: FC<DiaryProps> = ({ onNavigate }) => {
+  const [isSidebarOpen, setIsSidebarOpen] = useState<boolean>(false);
+  const [expandedEntryId, setExpandedEntryId] = useState<number | null>(4);
+  const [isCalendarOpen, setIsCalendarOpen] = useState<boolean>(false);
+  const [calendarView, setCalendarView] = useState<CalendarView>('days');
+  const [currentDate, setCurrentDate] = useState<Date>(new Date(2027, 3, 1));
+  const [newEntryText, setNewEntryText] = useState<string>('');
+  const [entries, setEntries] = useState<DiaryEntry[]>(defaultPastEntries);
+  
+  const calendarRef = useRef<HTMLDivElement | null>(null);
 
   const months = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
-  const years = Array.from({ length: 12 }, (_, i) => 2021 + i); // 2021 to 2032
+  const years = Array.from({ length: 12 }, (_, i) => 2021 + i);
 
-  // Close calendar if clicked outside
   useEffect(() => {
-    const handleClickOutside = (event) => {
-      if (calendarRef.current && !calendarRef.current.contains(event.target)) {
+    const fetchEntries = async () => {
+      if (!auth.currentUser) return;
+      try {
+        const userDocRef = doc(db, 'users', auth.currentUser.uid);
+        const userDoc = await getDoc(userDocRef);
+        if (userDoc.exists() && userDoc.data().diaryEntries) {
+          setEntries(userDoc.data().diaryEntries);
+        }
+      } catch (err) {
+        console.error('Failed to load diary entries from Firestore:', err);
+      }
+    };
+    fetchEntries();
+  }, []);
+
+  useEffect(() => {
+    const handleClickOutside = (event: MouseEvent) => {
+      if (calendarRef.current && !calendarRef.current.contains(event.target as Node)) {
         setIsCalendarOpen(false);
         setCalendarView('days');
       }
@@ -36,16 +62,40 @@ const Diary = ({ userName, onNavigate }) => {
     return () => document.removeEventListener('mousedown', handleClickOutside);
   }, []);
 
-  const toggleEntry = (id) => {
+  const handleAddEntry = async () => {
+    if (!newEntryText.trim()) return;
+    const newEntry: DiaryEntry = {
+      id: Date.now(),
+      date: new Date().toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' }),
+      title: newEntryText.trim().slice(0, 25) + '...',
+      snippet: newEntryText.trim()
+    };
+
+    const updatedEntries = [newEntry, ...entries];
+    setEntries(updatedEntries);
+    setNewEntryText('');
+    setExpandedEntryId(newEntry.id);
+
+    if (auth.currentUser) {
+      try {
+        const userDocRef = doc(db, 'users', auth.currentUser.uid);
+        await setDoc(userDocRef, { diaryEntries: updatedEntries }, { merge: true });
+      } catch (err) {
+        console.error('Failed to save entry to Firestore:', err);
+      }
+    }
+  };
+
+  const toggleEntry = (id: number) => {
     setExpandedEntryId(expandedEntryId === id ? null : id);
   };
 
-  const handleMonthSelect = (monthIdx) => {
+  const handleMonthSelect = (monthIdx: number) => {
     setCurrentDate(new Date(currentDate.getFullYear(), monthIdx, 1));
     setCalendarView('days');
   };
 
-  const handleYearSelect = (year) => {
+  const handleYearSelect = (year: number) => {
     setCurrentDate(new Date(year, currentDate.getMonth(), 1));
     setCalendarView('days');
   };
@@ -70,10 +120,12 @@ const Diary = ({ userName, onNavigate }) => {
             <textarea 
               className="diary-textarea-large" 
               placeholder="Type your thoughts...."
+              value={newEntryText}
+              onChange={(e) => setNewEntryText(e.target.value)}
             ></textarea>
           </div>
           <div className="diary-actions">
-            <button className="new-entry-btn">
+            <button className="new-entry-btn" onClick={handleAddEntry}>
               New Entry <PlusCircle size={18} />
             </button>
           </div>
@@ -116,7 +168,6 @@ const Diary = ({ userName, onNavigate }) => {
                     <span>Mon</span><span>Tue</span><span>Wed</span><span>Thu</span><span>Fri</span><span>Sat</span><span>Sun</span>
                   </div>
                   <div className="calendar-grid">
-                    {/* Mock dates for April 2027 */}
                     {[28, 29, 30, 31].map(d => <div key={`prev-${d}`} className="calendar-day prev-month">{d}</div>)}
                     {Array.from({ length: 30 }, (_, i) => i + 1).map(d => (
                       <div key={d} className="calendar-day">{d}</div>
@@ -125,7 +176,6 @@ const Diary = ({ userName, onNavigate }) => {
                   </div>
                 </div>
 
-                {/* Dropdowns */}
                 {calendarView === 'months' && (
                   <div className="calendar-dropdown month-dropdown">
                     {months.map((m, idx) => (
@@ -158,7 +208,7 @@ const Diary = ({ userName, onNavigate }) => {
           </div>
 
           <div className="past-entries-list">
-            {pastEntries.map(entry => (
+            {entries.map(entry => (
               <div 
                 key={entry.id} 
                 className={`past-entry-item ${expandedEntryId === entry.id ? 'expanded' : ''}`}
