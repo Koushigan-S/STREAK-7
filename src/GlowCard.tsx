@@ -4,7 +4,7 @@ import './GlowCard.css';
 export interface GlowCardProps {
   children?: ReactNode;
   className?: string;
-  onClick?: () => void;
+  onClick?: (e: React.MouseEvent<HTMLDivElement>) => void;
 }
 
 const GlowCard: FC<GlowCardProps> = ({ children, className = '', onClick }) => {

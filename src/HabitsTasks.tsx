@@ -1,5 +1,5 @@
 import { useState, useMemo, useEffect, FC } from 'react';
-import { Menu, CheckSquare, Square } from 'lucide-react';
+import { Menu, CheckSquare, Square, X } from 'lucide-react';
 import { doc, getDoc, setDoc } from 'firebase/firestore';
 import { db, auth } from './firebase';
 import Sidebar from './Sidebar';
@@ -301,9 +301,30 @@ const HabitsTasks: FC<HabitsTasksProps> = ({ onNavigate }) => {
 
       {/* Add Habit Modal */}
       {isAddModalOpen && (
-        <div className="modal-overlay">
-          <GlowCard className="modal-card">
-            <h3 className="modal-title">Add Habit</h3>
+        <div className="modal-overlay" onClick={() => setIsAddModalOpen(false)}>
+          <GlowCard className="modal-card" onClick={(e: React.MouseEvent) => e.stopPropagation()}>
+            <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: '1.25rem' }}>
+              <h3 className="modal-title" style={{ margin: 0 }}>Add Habit</h3>
+              <button 
+                onClick={() => setIsAddModalOpen(false)}
+                title="Cancel"
+                className="modal-close-btn"
+                style={{
+                  background: 'transparent',
+                  border: 'none',
+                  color: 'var(--color-text-muted)',
+                  cursor: 'pointer',
+                  padding: '4px',
+                  borderRadius: '6px',
+                  display: 'flex',
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                  transition: 'color 0.2s, background-color 0.2s'
+                }}
+              >
+                <X size={20} />
+              </button>
+            </div>
             <input 
               type="text" 
               className="modal-input" 
