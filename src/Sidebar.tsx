@@ -1,5 +1,5 @@
 import { FC } from 'react';
-import { ChevronRight } from 'lucide-react';
+import { ChevronLeft } from 'lucide-react';
 import GlowCard from './GlowCard';
 import './Sidebar.css';
 import { OnNavigateFn, ViewType } from './types';
@@ -26,7 +26,7 @@ const Sidebar: FC<SidebarProps> = ({ isOpen, toggleSidebar, onNavigate, active =
           <img src="/favicon.png" alt="Streak 7 Mascot" style={{ width: '42px', height: '42px', borderRadius: '10px', objectFit: 'cover' }} />
           <h2 style={{ margin: 0, fontSize: '1.4rem', fontWeight: 800, fontFamily: 'var(--font-heading)', color: 'var(--color-primary)', letterSpacing: '0.5px' }}>STREAK 7</h2>
           <button className="sidebar-toggle-btn" onClick={toggleSidebar} style={{ marginLeft: 'auto', marginBottom: 0 }}>
-            <ChevronRight size={22} color="var(--color-primary)" />
+            <ChevronLeft size={22} color="var(--color-primary)" />
           </button>
         </div>
 
