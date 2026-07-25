@@ -1,25 +1,32 @@
 # STREAK 7 🔥
 
-A modern, high-performance habit tracker, daily task manager, interactive diary, and progress analytics web application built with React, TypeScript, and Firebase.
+A production-grade, real-time habit tracker, daily task manager, interactive diary, and progress analytics web application featuring **Sev** the Flame mascot, built with React, TypeScript, and Firebase.
 
-![Streak7 Banner](public/favicon.svg)
+![Streak 7 Mascot Sev](public/logo.png)
 
 ## 🚀 Features
 
-- **Google Authentication**: Seamless one-click Google Sign-In powered by Firebase Auth.
-- **Habit & Task Tracking**: Track daily habits, view streak counts, and analyze activity heatmaps.
-- **Personal Diary**: Write, view, and expand past diary entries synced to Cloud Firestore in real time.
-- **Stats & Achievements**: Visualize progress metrics across categories using interactive Recharts Radar Charts.
-- **Custom Design System**: Dark-mode UI with dynamic glassmorphism glow cards and responsive navigation sidebar.
-- **Firebase Firestore Integration**: Real-time cloud persistence for tasks, habits, diary entries, and user profiles.
+- **Google Authentication**: One-click Google Sign-In with persistent session state powered by Firebase Auth.
+- **Official Mascot "Sev" 🔥**: Meets Sev—the flame mascot whose fire burns brighter as you complete daily streaks!
+- **Real-Time Habit & Task Tracking**: Track habits, compute streaks dynamically, and log real-time activity on a GitHub-style Heatmap.
+- **Interactive Personal Diary**:
+  - Write daily diary entries with automatic Cloud Firestore synchronization.
+  - Interactive calendar date filtering with auto-reset to today's date.
+  - Reader popover modal for full entry viewing.
+  - Past entries remain archived read-only; Delete & Rewrite options are strictly guarded for today's present entry.
+- **Dynamic Stats & Achievements**: Visualize category progress (`Study`, `Work`, `Health`, `Challenges`, `Others`) using interactive Recharts Radar Charts.
+- **Duolingo Night Mode Palette**: High-contrast, premium dark mode aesthetic (`#131F24` dark background, `#1B2A32` surface cards, `#58CC02` Feather Green accents, `#FF9600` Fox Orange streak highlights).
+- **Automatic Daily Quote Engine**: Generates a brand new motivational quote every 24 hours based on calendar date.
+- **Danger Zone Account Management**: Full account deletion support in Settings with complete Cloud Firestore user data purging and Auth account deletion.
 
 ## 🛠️ Technology Stack
 
-- **Frontend**: React 19, TypeScript (TSX)
-- **Styling**: Vanilla CSS with custom properties & glassmorphism glow effects
-- **Backend & Auth**: Firebase Auth (Google Sign-In) & Cloud Firestore
-- **Charts & Icons**: Recharts, Lucide React
-- **Build Tool**: Vite, TypeScript ESLint
+- **Frontend**: React 18, TypeScript (TSX)
+- **Design System**: Duolingo Night Mode palette with Vanilla CSS variables & custom glow cards
+- **Backend & Auth**: Firebase Auth & Cloud Firestore real-time database
+- **Data Visualization**: Recharts (Radar Charts) & GitHub Activity Heatmap
+- **Icons**: Lucide React
+- **Build Tool**: Vite, TypeScript
 - **Hosting**: Firebase Hosting ([streak7-16fb9.web.app](https://streak7-16fb9.web.app))
 
 ## 📦 Getting Started
@@ -43,11 +50,7 @@ A modern, high-performance habit tracker, daily task manager, interactive diary,
    ```
 
 3. Set up environment variables:
-   Copy `.env.example` to `.env` and fill in your Firebase credentials:
-   ```bash
-   cp .env.example .env
-   ```
-
+   Create a `.env` file in the project root with your Firebase project credentials:
    ```env
    VITE_FIREBASE_API_KEY=your_api_key_here
    VITE_FIREBASE_AUTH_DOMAIN=your_project_id.firebaseapp.com
@@ -67,9 +70,9 @@ npm run dev
 
 Open [http://localhost:5173](http://localhost:5173) in your browser.
 
-### Production Build & Deployment
+### Production Build & Firebase Deployment
 
-1. Run type checks and build the production bundle:
+1. Build the production bundle:
    ```bash
    npm run build
    ```

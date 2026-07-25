@@ -1,9 +1,41 @@
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@700;800;900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Inter:wght@400;500;600;700&display=swap');
 
 :root {
-  --bg-color: #161616;
-  --accent-color: #D41111;
-  --font-main: 'Inter', sans-serif;
+  /* Duolingo Night Mode Palette (Default Dark Mode) */
+  --color-bg: #131F24;                    /* Duolingo Night Mode Dark Charcoal */
+  --color-surface: #1B2A32;               /* Duolingo Night Mode Surface */
+  --color-surface-elevated: #243642;
+  --color-primary: #58CC02;               /* Feather Green */
+  --color-primary-hover: #61E002;
+  --color-primary-light: rgba(88, 204, 2, 0.18);
+  --color-heading: #F1F5F9;               /* Bright Text */
+  --color-text-main: #F1F5F9;
+  --color-text-muted: #869BA8;            /* Muted Grey Blue */
+  --color-border: #2C3E49;                /* Card Border */
+  --color-border-subtle: #22333D;
+  --color-accent-amber: #FF9600;          /* Fox Orange Streak */
+  --color-accent-amber-light: rgba(255, 150, 0, 0.2);
+
+  --glow-color-1: rgba(88, 204, 2, 0.12);
+  --glow-color-2: rgba(255, 150, 0, 0.4);
+
+  --heatmap-empty: #22333D;
+  --heatmap-level-1: rgba(88, 204, 2, 0.3);
+  --heatmap-level-2: rgba(88, 204, 2, 0.6);
+  --heatmap-level-3: #58CC02;
+  --heatmap-level-4: #61E002;
+
+  --font-heading: 'Plus Jakarta Sans', sans-serif;
+  --font-body: 'Inter', system-ui, -apple-system, sans-serif;
+
+  /* Legacy variable mapping for compatibility */
+  --bg-color: var(--color-bg);
+  --accent-color: var(--color-primary);
+  --font-main: var(--font-body);
+
+  --shadow-sm: 0 2px 8px -1px rgba(0, 0, 0, 0.3);
+  --shadow-md: 0 4px 20px -2px rgba(0, 0, 0, 0.4);
+  --shadow-lg: 0 10px 30px -4px rgba(0, 0, 0, 0.5);
 }
 
 * {
@@ -13,13 +45,18 @@
 body, html {
   margin: 0;
   padding: 0;
-  background-color: var(--bg-color);
-  color: var(--accent-color);
-  font-family: var(--font-main);
+  background-color: var(--color-bg);
+  color: var(--color-text-main);
+  font-family: var(--font-body);
   min-height: 100vh;
   width: 100vw;
   overflow-y: auto;
   overflow-x: hidden;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: var(--font-heading);
+  color: var(--color-heading);
 }
 
 #root {
@@ -32,12 +69,12 @@ body, html {
   width: 8px;
 }
 ::-webkit-scrollbar-track {
-  background: var(--bg-color);
+  background: var(--color-bg);
 }
 ::-webkit-scrollbar-thumb {
-  background: rgba(212, 17, 17, 0.5);
+  background: rgba(59, 94, 83, 0.3);
   border-radius: 4px;
 }
 ::-webkit-scrollbar-thumb:hover {
-  background: var(--accent-color);
+  background: var(--color-primary);
 }

@@ -15,19 +15,20 @@
 
 /* Avatar */
 .settings-avatar-circle {
-  width: 150px;
-  height: 150px;
-  background-color: #252525;
+  width: 140px;
+  height: 140px;
+  background-color: rgba(59, 94, 83, 0.12);
+  border: 2px solid var(--color-primary, #3B5E53);
   border-radius: 50%;
   display: flex;
   align-items: center;
   justify-content: center;
-  color: #FFFFFF;
-  font-size: 5rem;
-  font-weight: 400;
+  color: var(--color-primary, #3B5E53);
+  font-size: 4.5rem;
+  font-weight: 500;
+  font-family: var(--font-heading);
   margin-bottom: 3rem;
-  /* subtle shadow matching the design */
-  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.4);
+  box-shadow: 0 4px 20px -2px rgba(59, 94, 83, 0.15);
 }
 
 /* Display Name Card */
@@ -37,20 +38,21 @@
 }
 
 .settings-display-name-card .glow-card-content {
-  padding: 1.5rem 2rem;
+  padding: 1.75rem 2.25rem;
 }
 
 .settings-label {
-  color: #A0A0A0;
-  font-size: 1rem;
+  color: var(--color-text-muted, #687771);
+  font-size: 0.95rem;
   margin-bottom: 0.5rem;
   display: block;
 }
 
 .settings-value {
-  color: #FFFFFF;
-  font-size: 1.5rem;
-  font-weight: 500;
+  color: var(--color-heading, #1E2522);
+  font-size: 1.4rem;
+  font-weight: 600;
+  font-family: var(--font-heading);
   display: block;
 }
 
@@ -75,35 +77,37 @@
 
 .display-name-input {
   width: 100%;
-  background-color: #C0C0C0; /* Light gray from design */
-  border: none;
-  border-radius: 8px;
+  background-color: var(--color-bg, #F7F6F2);
+  border: 1px solid rgba(30, 37, 34, 0.12);
+  border-radius: 10px;
   padding: 1rem;
-  font-size: 1.25rem;
+  font-size: 1.15rem;
   font-weight: 500;
-  color: #D41111; /* Red text */
+  color: var(--color-text-main, #1E2522);
   outline: none;
+  transition: border-color 0.2s, box-shadow 0.2s;
 }
 
 .display-name-input:focus {
-  box-shadow: 0 0 0 2px rgba(212, 17, 17, 0.5);
+  border-color: var(--color-primary, #3B5E53);
+  box-shadow: 0 0 0 3px rgba(59, 94, 83, 0.12);
 }
 
 /* Buttons */
 .settings-btn-primary {
-  background-color: var(--accent-color);
+  background-color: var(--color-primary, #3B5E53);
   color: #FFFFFF;
   border: none;
-  border-radius: 8px;
-  padding: 0.75rem 2.5rem;
-  font-size: 1.2rem;
-  font-weight: 500;
+  border-radius: 10px;
+  padding: 0.85rem 2.5rem;
+  font-size: 1.05rem;
+  font-weight: 600;
   cursor: pointer;
   transition: background-color 0.2s;
 }
 
 .settings-btn-primary:hover {
-  background-color: #B30E0E;
+  background-color: var(--color-primary-hover, #2E4B42);
 }
 
 .settings-btn-primary.full-width {
@@ -114,7 +118,7 @@
 /* Footer / Sign Out */
 .settings-footer {
   margin-top: auto;
-  padding-top: 4rem;
+  padding-top: 2.5rem;
   display: flex;
   justify-content: center;
   width: 100%;
@@ -122,4 +126,112 @@
 
 .signout-btn {
   max-width: 600px;
+}
+
+/* Danger Zone / Delete Account Card */
+.settings-danger-card {
+  width: 100%;
+  max-width: 600px;
+  margin-top: 1.5rem;
+  border-color: rgba(220, 38, 38, 0.25) !important;
+}
+
+.settings-danger-card:hover {
+  border-color: #DC2626 !important;
+  box-shadow: 0 0 0 1px #DC2626, var(--shadow-md) !important;
+}
+
+.danger-card-content {
+  padding: 1.5rem 2rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 1.5rem;
+}
+
+.danger-card-header {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin-bottom: 0.35rem;
+}
+
+.danger-icon {
+  color: #DC2626;
+}
+
+.danger-title {
+  color: #DC2626;
+  font-family: var(--font-heading);
+  font-size: 1.15rem;
+  font-weight: 700;
+}
+
+.danger-desc {
+  color: var(--color-text-muted);
+  font-size: 0.88rem;
+  line-height: 1.45;
+  margin: 0;
+}
+
+.delete-account-btn {
+  background: rgba(220, 38, 38, 0.1);
+  color: #DC2626;
+  border: 1px solid rgba(220, 38, 38, 0.3);
+  border-radius: 10px;
+  padding: 0.75rem 1.25rem;
+  font-size: 0.95rem;
+  font-weight: 600;
+  cursor: pointer;
+  white-space: nowrap;
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+  transition: all 0.2s ease;
+}
+
+.delete-account-btn:hover {
+  background: #DC2626;
+  color: #FFFFFF;
+  border-color: #DC2626;
+}
+
+/* Delete Modal Card */
+.delete-account-modal-card .glow-card-content {
+  padding: 2.25rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.delete-modal-header {
+  display: flex;
+  align-items: center;
+  gap: 0.85rem;
+}
+
+.delete-modal-icon-badge {
+  width: 44px;
+  height: 44px;
+  border-radius: 12px;
+  background: rgba(220, 38, 38, 0.12);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.delete-modal-title {
+  font-family: var(--font-heading);
+  font-size: 1.3rem;
+  font-weight: 700;
+  color: var(--color-heading);
+  margin: 0;
+}
+
+.delete-modal-desc {
+  font-size: 0.95rem;
+  line-height: 1.55;
+  color: var(--color-text-main);
+  margin: 0;
 }

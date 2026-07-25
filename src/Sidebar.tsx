@@ -1,4 +1,4 @@
-import { useRef, useEffect, FC } from 'react';
+import { FC } from 'react';
 import { ChevronRight } from 'lucide-react';
 import GlowCard from './GlowCard';
 import './Sidebar.css';
@@ -12,27 +12,6 @@ export interface SidebarProps {
 }
 
 const Sidebar: FC<SidebarProps> = ({ isOpen, toggleSidebar, onNavigate, active = 'dashboard' }) => {
-  const sidebarRef = useRef<HTMLDivElement | null>(null);
-
-  useEffect(() => {
-    const sidebar = sidebarRef.current;
-    if (!sidebar) return;
-
-    const handleMouseMove = (e: MouseEvent) => {
-      const rect = sidebar.getBoundingClientRect();
-      const x = e.clientX - rect.left;
-      const y = e.clientY - rect.top;
-
-      sidebar.style.setProperty('--mouse-x', `${x}px`);
-      sidebar.style.setProperty('--mouse-y', `${y}px`);
-    };
-
-    sidebar.addEventListener('mousemove', handleMouseMove);
-    return () => {
-      sidebar.removeEventListener('mousemove', handleMouseMove);
-    };
-  }, []);
-
   const handleNav = (view: ViewType) => {
     if (onNavigate) {
       onNavigate(view);
@@ -40,13 +19,16 @@ const Sidebar: FC<SidebarProps> = ({ isOpen, toggleSidebar, onNavigate, active =
   };
 
   return (
-    <div className={`sidebar ${isOpen ? 'open' : ''}`} ref={sidebarRef}>
-      <div className="sidebar-glow-bg"></div>
+    <div className={`sidebar ${isOpen ? 'open' : ''}`}>
       
       <div className="sidebar-content">
-        <button className="sidebar-toggle-btn" onClick={toggleSidebar}>
-          <ChevronRight size={24} color="var(--accent-color)" />
-        </button>
+        <div className="sidebar-header" style={{ display: 'flex', alignItems: 'center', gap: '0.85rem', marginBottom: '2rem' }}>
+          <img src="/favicon.png" alt="Streak 7 Mascot" style={{ width: '42px', height: '42px', borderRadius: '10px', objectFit: 'cover' }} />
+          <h2 style={{ margin: 0, fontSize: '1.4rem', fontWeight: 800, fontFamily: 'var(--font-heading)', color: 'var(--color-primary)', letterSpacing: '0.5px' }}>STREAK 7</h2>
+          <button className="sidebar-toggle-btn" onClick={toggleSidebar} style={{ marginLeft: 'auto', marginBottom: 0 }}>
+            <ChevronRight size={22} color="var(--color-primary)" />
+          </button>
+        </div>
 
         <nav className="sidebar-nav">
           <GlowCard className="sidebar-link-wrapper">

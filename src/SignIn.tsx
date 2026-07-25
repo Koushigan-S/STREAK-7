@@ -39,6 +39,7 @@ const SignIn: FC<SignInProps> = ({ onNavigate }) => {
     <div className="signin-container">
       <GlowCard>
         <div className="signin-header">
+          <img src="/favicon.png" alt="Streak 7 Mascot" style={{ width: '80px', height: '80px', borderRadius: '18px', marginBottom: '0.75rem', boxShadow: '0 8px 24px rgba(88, 204, 2, 0.25)' }} />
           <h1 className="signin-logo">STREAK 7</h1>
           <div className="signin-logo-underline"></div>
         </div>

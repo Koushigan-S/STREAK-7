@@ -4,7 +4,7 @@
   justify-content: center;
   min-height: 100vh;
   width: 100vw;
-  background-color: var(--bg-color);
+  background-color: var(--color-bg, #F7F6F2);
   padding: 1rem;
   animation: fadeIn 0.5s ease-in;
 }
@@ -32,8 +32,9 @@
 
 .signin-logo {
   font-size: 2.5rem;
-  font-weight: 900;
-  color: var(--accent-color);
+  font-weight: 800;
+  font-family: var(--font-heading);
+  color: var(--color-primary, #3B5E53);
   margin: 0;
   letter-spacing: 1px;
   line-height: 1;
@@ -42,13 +43,14 @@
 .signin-logo-underline {
   width: 100px;
   height: 4px;
-  background-color: var(--accent-color);
-  margin-top: 0.25rem;
+  background-color: var(--color-primary, #3B5E53);
+  border-radius: 2px;
+  margin-top: 0.35rem;
 }
 
 .signin-subtitle {
   text-align: center;
-  color: #E0E0E0;
+  color: var(--color-text-muted, #687771);
   margin-bottom: 2.5rem;
   font-size: 1rem;
 }
@@ -67,18 +69,18 @@
 }
 
 .form-group label {
-  color: #FFFFFF;
+  color: var(--color-heading, #1E2522);
   font-size: 0.95rem;
-  font-weight: 500;
+  font-weight: 600;
 }
 
 .form-input {
   width: 100%;
   padding: 0.85rem 1rem;
-  background-color: rgba(0, 0, 0, 0.4);
-  border: 1px solid rgba(255, 255, 255, 0.1);
-  border-radius: 6px;
-  color: #FFFFFF;
+  background-color: var(--color-bg, #F7F6F2);
+  border: 1px solid rgba(30, 37, 34, 0.12);
+  border-radius: 10px;
+  color: var(--color-text-main, #1E2522);
   font-family: inherit;
   font-size: 0.95rem;
   transition: border-color 0.2s, box-shadow 0.2s;
@@ -86,12 +88,13 @@
 }
 
 .form-input::placeholder {
-  color: rgba(255, 255, 255, 0.3);
+  color: var(--color-text-muted, #687771);
 }
 
 .form-input:focus {
-  border-color: var(--accent-color);
-  background-color: rgba(0, 0, 0, 0.6);
+  border-color: var(--color-primary, #3B5E53);
+  box-shadow: 0 0 0 3px rgba(59, 94, 83, 0.12);
+  background-color: #FFFFFF;
 }
 
 .password-input-wrapper {
@@ -101,7 +104,7 @@
 }
 
 .password-input {
-  padding-right: 2.5rem; /* space for icon */
+  padding-right: 2.5rem;
 }
 
 .password-toggle {
@@ -109,7 +112,7 @@
   right: 1rem;
   background: none;
   border: none;
-  color: rgba(255, 255, 255, 0.5);
+  color: var(--color-text-muted, #687771);
   cursor: pointer;
   padding: 0;
   display: flex;
@@ -119,17 +122,17 @@
 }
 
 .password-toggle:hover {
-  color: var(--accent-color);
+  color: var(--color-primary, #3B5E53);
 }
 
 .submit-button {
   margin-top: 1rem;
   width: 100%;
   padding: 0.85rem;
-  background-color: var(--accent-color);
+  background-color: var(--color-primary, #3B5E53);
   color: #FFFFFF;
   border: none;
-  border-radius: 6px;
+  border-radius: 10px;
   font-size: 1.05rem;
   font-weight: 600;
   cursor: pointer;
@@ -137,7 +140,7 @@
 }
 
 .submit-button:hover {
-  background-color: #B30E0E; /* Darker red */
+  background-color: var(--color-primary-hover, #2E4B42);
 }
 
 .submit-button:active {
@@ -147,20 +150,20 @@
 .signin-footer {
   margin-top: 2rem;
   text-align: center;
-  color: rgba(255, 255, 255, 0.7);
+  color: var(--color-text-muted, #687771);
   font-size: 0.95rem;
 }
 
 .signup-link {
-  color: #FFFFFF;
+  color: var(--color-primary, #3B5E53);
   text-decoration: underline;
-  font-weight: 500;
+  font-weight: 600;
   cursor: pointer;
   transition: color 0.2s;
 }
 
 .signup-link:hover {
-  color: var(--accent-color);
+  color: var(--color-primary-hover, #2E4B42);
 }
 
 /* Welcome Screen Styles */
@@ -183,20 +186,22 @@
 .welcome-title {
   font-size: 2.5rem;
   font-weight: 700;
-  color: #FFFFFF;
+  font-family: var(--font-heading);
+  color: var(--color-heading, #1E2522);
   margin: 0;
 }
 
 .welcome-to {
   font-size: 1.5rem;
-  color: #FFFFFF;
+  color: var(--color-text-muted, #687771);
   margin: 0;
 }
 
 .welcome-name {
   font-size: 2.5rem;
-  font-weight: 500;
-  color: #FFFFFF;
+  font-weight: 700;
+  font-family: var(--font-heading);
+  color: var(--color-primary, #3B5E53);
   margin: 0;
   margin-bottom: 1rem;
 }
@@ -208,7 +213,7 @@
 }
 
 .back-button {
-  background-color: var(--accent-color);
+  background-color: var(--color-primary, #3B5E53);
   font-weight: 600;
 }
 
@@ -220,10 +225,10 @@
   gap: 0.75rem;
   width: 100%;
   padding: 0.85rem;
-  background-color: rgba(255, 255, 255, 0.08);
-  color: #FFFFFF;
-  border: 1px solid rgba(255, 255, 255, 0.2);
-  border-radius: 6px;
+  background-color: var(--color-bg, #F7F6F2);
+  color: var(--color-text-main, #1E2522);
+  border: 1px solid rgba(30, 37, 34, 0.12);
+  border-radius: 10px;
   font-size: 1rem;
   font-weight: 500;
   cursor: pointer;
@@ -231,15 +236,15 @@
 }
 
 .google-btn:hover {
-  background-color: rgba(255, 255, 255, 0.15);
-  border-color: rgba(255, 255, 255, 0.4);
+  background-color: #EFECE6;
+  border-color: rgba(30, 37, 34, 0.2);
 }
 
 .auth-divider {
   display: flex;
   align-items: center;
   margin: 1.25rem 0;
-  color: rgba(255, 255, 255, 0.4);
+  color: var(--color-text-muted, #687771);
   font-size: 0.85rem;
 }
 
@@ -247,7 +252,7 @@
 .auth-divider::after {
   content: '';
   flex: 1;
-  border-bottom: 1px solid rgba(255, 255, 255, 0.15);
+  border-bottom: 1px solid rgba(30, 37, 34, 0.12);
 }
 
 .auth-divider span {
@@ -255,11 +260,11 @@
 }
 
 .auth-error {
-  background-color: rgba(212, 17, 17, 0.2);
-  border: 1px solid var(--accent-color);
-  color: #FF6B6B;
+  background-color: rgba(217, 83, 79, 0.1);
+  border: 1px solid #D9534F;
+  color: #D9534F;
   padding: 0.75rem 1rem;
-  border-radius: 6px;
+  border-radius: 8px;
   font-size: 0.9rem;
   margin-bottom: 1rem;
   text-align: center;
