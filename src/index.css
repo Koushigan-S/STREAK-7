@@ -49,9 +49,11 @@ body, html {
   color: var(--color-text-main);
   font-family: var(--font-body);
   min-height: 100vh;
-  width: 100vw;
+  width: 100%;
+  max-width: 100%;
   overflow-y: auto;
   overflow-x: hidden;
+  -webkit-tap-highlight-color: transparent;
 }
 
 h1, h2, h3, h4, h5, h6 {
@@ -61,7 +63,9 @@ h1, h2, h3, h4, h5, h6 {
 
 #root {
   width: 100%;
+  max-width: 100%;
   min-height: 100%;
+  overflow-x: hidden;
 }
 
 /* Custom Scrollbar for entire page */

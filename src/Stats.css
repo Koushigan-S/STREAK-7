@@ -9,7 +9,7 @@
 }
 
 .stats-greeting {
-  font-size: 2.25rem;
+  font-size: clamp(1.3rem, 4vw, 2.25rem);
   font-weight: 700;
   font-family: var(--font-heading);
   color: var(--color-heading, #1E2522);
@@ -45,24 +45,20 @@
   padding: 2rem;
   display: flex;
   flex-direction: column;
-  position: relative;
   height: 100%;
 }
 
 .overall-title {
   font-size: 1.8rem;
   line-height: 1.2;
+  margin-top: 0;
   margin-bottom: 1rem;
-  position: absolute;
-  top: 2rem;
-  left: 2rem;
-  z-index: 10;
 }
 
 .radar-container {
   flex-grow: 1;
   width: 100%;
-  min-height: 400px;
+  min-height: 320px;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -170,8 +166,28 @@
   .stats-header-row {
     flex-direction: column;
     align-items: flex-start;
+    gap: 1rem;
+  }
+  .streak-card {
+    width: 100%;
   }
   .stats-grid {
     grid-template-columns: 1fr;
+    gap: 1.25rem;
+  }
+}
+
+@media (max-width: 600px) {
+  .stats-overall-card .glow-card-content,
+  .stats-progress-widget .glow-card-content,
+  .daily-progress-list-card .glow-card-content {
+    padding: 1.25rem 1rem;
+  }
+  .radar-container {
+    min-height: 250px;
+    height: 270px;
+  }
+  .daily-progress-box {
+    padding: 1rem;
   }
 }

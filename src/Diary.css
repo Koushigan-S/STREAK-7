@@ -159,6 +159,8 @@
   gap: 1.25rem;
   overflow-x: auto;
   scroll-behavior: smooth;
+  scroll-snap-type: x mandatory;
+  -webkit-overflow-scrolling: touch;
   padding: 0.5rem 0.25rem 1.25rem 0.25rem;
   width: 100%;
 }
@@ -180,6 +182,7 @@
   min-width: 280px;
   max-width: 320px;
   flex: 0 0 auto;
+  scroll-snap-align: start;
   background: var(--color-bg);
   border: 1px solid var(--color-border);
   border-radius: 14px;
@@ -686,4 +689,30 @@
 @keyframes fadeIn {
   from { opacity: 0; transform: translateY(-5px); }
   to { opacity: 1; transform: translateY(0); }
+}
+
+@media (max-width: 600px) {
+  .diary-editor-card .glow-card-content {
+    padding: 1.5rem 1rem;
+    gap: 1.25rem;
+  }
+  .diary-textarea-container {
+    padding: 1rem;
+  }
+  .past-entries-section {
+    padding: 1.25rem 1rem;
+  }
+  .carousel-nav-btn {
+    display: none;
+  }
+  .carousel-card {
+    min-width: min(270px, 80vw);
+    max-width: 82vw;
+    padding: 1.25rem 1rem;
+  }
+  .calendar-popover {
+    width: calc(100vw - 2rem);
+    max-width: 320px;
+    right: 0;
+  }
 }

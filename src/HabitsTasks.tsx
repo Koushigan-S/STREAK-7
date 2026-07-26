@@ -228,54 +228,56 @@ const HabitsTasks: FC<HabitsTasksProps> = ({ onNavigate }) => {
 
               <div className="github-heatmap-wrapper">
                 <div className="github-heatmap-box">
-                  <div className="github-months-row">
-                    <span style={{ width: '28px' }}></span>
-                    {months.map(m => (
-                      <span key={m} className="github-month-label">{m}</span>
-                    ))}
-                  </div>
-
-                  <div className="github-matrix-container">
-                    <div className="github-days-col">
-                      <span className="github-day-label"></span>
-                      <span className="github-day-label">Mon</span>
-                      <span className="github-day-label"></span>
-                      <span className="github-day-label">Wed</span>
-                      <span className="github-day-label"></span>
-                      <span className="github-day-label">Fri</span>
-                      <span className="github-day-label"></span>
-                    </div>
-
-                    <div className="github-grid-52">
-                      {yearHeatmapData.map(day => (
-                        <div
-                          key={day.id}
-                          className={`github-cell level-${day.level} ${hoveredDay?.id === day.id ? 'hovered' : ''}`}
-                          onMouseEnter={() => setHoveredDay(day)}
-                          onMouseLeave={() => setHoveredDay(null)}
-                          title={`${day.count} tasks completed on ${day.dateStr}`}
-                        ></div>
+                  <div className="github-heatmap-inner">
+                    <div className="github-months-row">
+                      <span style={{ width: '28px' }}></span>
+                      {months.map(m => (
+                        <span key={m} className="github-month-label">{m}</span>
                       ))}
                     </div>
-                  </div>
 
-                  <div className="github-heatmap-footer">
-                    <span>
-                      {hoveredDay ? (
-                        <strong>{hoveredDay.count} tasks completed on {hoveredDay.dateStr}</strong>
-                      ) : (
-                        'Hover over days to view completion history'
-                      )}
-                    </span>
+                    <div className="github-matrix-container">
+                      <div className="github-days-col">
+                        <span className="github-day-label"></span>
+                        <span className="github-day-label">Mon</span>
+                        <span className="github-day-label"></span>
+                        <span className="github-day-label">Wed</span>
+                        <span className="github-day-label"></span>
+                        <span className="github-day-label">Fri</span>
+                        <span className="github-day-label"></span>
+                      </div>
 
-                    <div className="github-legend">
-                      <span>Less</span>
-                      <div className="github-cell level-0 github-legend-cell"></div>
-                      <div className="github-cell level-1 github-legend-cell"></div>
-                      <div className="github-cell level-2 github-legend-cell"></div>
-                      <div className="github-cell level-3 github-legend-cell"></div>
-                      <div className="github-cell level-4 github-legend-cell"></div>
-                      <span>More</span>
+                      <div className="github-grid-52">
+                        {yearHeatmapData.map(day => (
+                          <div
+                            key={day.id}
+                            className={`github-cell level-${day.level} ${hoveredDay?.id === day.id ? 'hovered' : ''}`}
+                            onMouseEnter={() => setHoveredDay(day)}
+                            onMouseLeave={() => setHoveredDay(null)}
+                            title={`${day.count} tasks completed on ${day.dateStr}`}
+                          ></div>
+                        ))}
+                      </div>
+                    </div>
+
+                    <div className="github-heatmap-footer">
+                      <span>
+                        {hoveredDay ? (
+                          <strong>{hoveredDay.count} tasks completed on {hoveredDay.dateStr}</strong>
+                        ) : (
+                          'Hover over days to view completion history'
+                        )}
+                      </span>
+
+                      <div className="github-legend">
+                        <span>Less</span>
+                        <div className="github-cell level-0 github-legend-cell"></div>
+                        <div className="github-cell level-1 github-legend-cell"></div>
+                        <div className="github-cell level-2 github-legend-cell"></div>
+                        <div className="github-cell level-3 github-legend-cell"></div>
+                        <div className="github-cell level-4 github-legend-cell"></div>
+                        <span>More</span>
+                      </div>
                     </div>
                   </div>
                 </div>
