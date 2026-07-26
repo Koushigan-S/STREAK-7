@@ -27,13 +27,27 @@
 }
 
 /* Main Habits Container */
+.habits-main-card {
+  width: 100%;
+  max-width: 100%;
+  min-width: 0;
+  box-sizing: border-box;
+  overflow: hidden;
+}
+
 .habits-main-card .glow-card-content {
   padding: 2rem;
   gap: 1.5rem;
+  width: 100%;
+  max-width: 100%;
+  min-width: 0;
+  box-sizing: border-box;
 }
 
 .add-habit-btn {
   width: 100%;
+  max-width: 100%;
+  box-sizing: border-box;
   background-color: var(--color-primary, #3B5E53);
   color: #FFFFFF;
   border: none;
@@ -54,6 +68,10 @@
   display: flex;
   gap: 0.75rem;
   flex-wrap: wrap;
+  width: 100%;
+  max-width: 100%;
+  min-width: 0;
+  box-sizing: border-box;
 }
 
 .filter-btn {
@@ -90,9 +108,13 @@
 /* Split View: Left Habits List (320px) + Right GitHub Heatmap (1fr) */
 .habits-split-view {
   display: grid;
-  grid-template-columns: 320px 1fr;
+  grid-template-columns: minmax(0, 320px) minmax(0, 1fr);
   gap: 1.75rem;
   align-items: stretch;
+  width: 100%;
+  max-width: 100%;
+  min-width: 0;
+  box-sizing: border-box;
 }
 
 /* Left: Habits List Column */
@@ -103,6 +125,10 @@
   padding: 1.25rem 1rem 1.25rem 1.25rem;
   display: flex;
   flex-direction: column;
+  width: 100%;
+  max-width: 100%;
+  min-width: 0;
+  box-sizing: border-box;
 }
 
 .habits-col-title {
@@ -121,6 +147,10 @@
   display: flex;
   flex-direction: column;
   gap: 0.75rem;
+  width: 100%;
+  max-width: 100%;
+  min-width: 0;
+  box-sizing: border-box;
 }
 
 .habits-scroll-area::-webkit-scrollbar {
@@ -145,6 +175,9 @@
   border-radius: 10px;
   cursor: pointer;
   transition: all 0.2s ease;
+  width: 100%;
+  max-width: 100%;
+  box-sizing: border-box;
 }
 
 .habit-list-item:hover {
@@ -163,22 +196,28 @@
   display: flex;
   align-items: center;
   gap: 0.85rem;
+  min-width: 0;
 }
 
 .task-icon {
   color: var(--color-primary, #3B5E53);
+  flex-shrink: 0;
 }
 
 .habit-info {
   display: flex;
   flex-direction: column;
   gap: 0.15rem;
+  min-width: 0;
 }
 
 .habit-title {
   color: var(--color-heading, #1E2522);
   font-size: 0.95rem;
   font-weight: 600;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
 }
 
 .habit-streak {
@@ -194,6 +233,7 @@
   border: 1px solid var(--color-accent-amber);
   border-radius: 12px;
   color: var(--color-accent-amber);
+  flex-shrink: 0;
 }
 
 /* Right: GitHub-Style Heatmap Container */
@@ -202,12 +242,18 @@
   flex-direction: column;
   gap: 0.85rem;
   width: 100%;
+  max-width: 100%;
+  min-width: 0;
+  box-sizing: border-box;
 }
 
 .github-heatmap-header {
   display: flex;
   justify-content: space-between;
   align-items: center;
+  width: 100%;
+  max-width: 100%;
+  min-width: 0;
 }
 
 .github-heatmap-title {
@@ -222,6 +268,9 @@
   display: flex;
   gap: 1.25rem;
   width: 100%;
+  max-width: 100%;
+  min-width: 0;
+  box-sizing: border-box;
 }
 
 /* The Bordered Main Graph Box */
@@ -236,6 +285,10 @@
   gap: 0.75rem;
   overflow-x: auto;
   -webkit-overflow-scrolling: touch;
+  width: 100%;
+  max-width: 100%;
+  min-width: 0;
+  box-sizing: border-box;
 }
 
 .github-heatmap-inner {
@@ -452,6 +505,9 @@
   .habits-split-view {
     grid-template-columns: 1fr;
     height: auto;
+    width: 100%;
+    max-width: 100%;
+    min-width: 0;
   }
   .habits-scroll-area {
     max-height: 300px;
@@ -465,24 +521,36 @@
   }
   .github-heatmap-wrapper {
     flex-direction: column;
+    width: 100%;
+    max-width: 100%;
+    min-width: 0;
   }
   .github-years-list {
     flex-direction: row;
     width: 100%;
+    max-width: 100%;
+    min-width: 0;
+    box-sizing: border-box;
+    gap: 0.5rem;
   }
   .github-year-btn {
     flex: 1;
+    min-width: 0;
     text-align: center;
+    padding: 0.6rem 0.5rem;
   }
 }
 
 @media (max-width: 600px) {
   .habits-main-card .glow-card-content {
-    padding: 1rem;
-    gap: 1.25rem;
+    padding: 0.85rem;
+    gap: 1rem;
+  }
+  .habits-list-col {
+    padding: 1rem 0.75rem;
   }
   .github-heatmap-box {
-    padding: 1rem;
+    padding: 0.85rem;
   }
   .modal-card .glow-card-content {
     padding: 1.5rem 1.25rem;
